@@ -4,7 +4,8 @@ export const layout = (isShow) => css`
     box-sizing: border-box;
     position: fixed;
     top: ${isShow ? "0px" : "-80px"};
-    right: 0;
+    right: 50%;
+    transform: translateX(50%);
     z-index: 99;
     border: 1px solid #dbdbdb;
     border-top: 0px;
