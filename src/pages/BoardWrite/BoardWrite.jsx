@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
 import { QUILL_MODULES } from '../../constants/quillModules';
-import { useEffect, useMemo } from 'react';
 import { useMaxLengthValidateInput } from '../../hooks/inputHook';
 import { useQuillInput } from '../../hooks/quillHook';
 import { useNavigate } from 'react-router-dom';
@@ -55,17 +54,22 @@ function BoardWrite() {
   const navigate = useNavigate();
 
   //Custom Hook 사용
-  const [inputValue, handleInputChange] = useMaxLengthValidateInput(10);
+  const [inputValue, handleInputChange] = useMaxLengthValidateInput(20);
   const [quillValue, handleQuillValueChange] = useQuillInput();
   const { boardList, lastId } = useLoadListFromLocalStorage();
 
   const handleSubmitClick = () => {
-    const board = {
-      boardId: lastId + 1,
-      boardTitle: inputValue,
-      boardContent: quillValue
-    };
-    const newBoardList = [...boardList, board];
+    let newBoardList = [];
+
+    for (let i = 0; i < 200; i++) {
+      const board = {
+        boardId: i + 1,
+        boardTitle: inputValue + (i + 1),
+        boardContent: quillValue
+      };
+      console.log(i + "번째")
+      newBoardList = [...newBoardList, board];
+    }
     localStorage.setItem("boardList", JSON.stringify(newBoardList));
     alert("글작성 완료!");
     navigate("/board/list");

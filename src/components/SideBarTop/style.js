@@ -20,7 +20,8 @@ export const toggleButton = css`
     box-sizing: border-box;
     position: absolute;
     bottom: -15px;
-    right: 10px;
+    right: 50%;
+    transform: translateX(50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,6 +60,7 @@ export const menuItem = css`
     height: 50px;
     color: black;
     font-weight: 600;
+    font-size: 13px;
     text-decoration: none;
     cursor: pointer;
     &:hover {
