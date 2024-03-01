@@ -1,54 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import * as S from "./style";
 import ReactQuill from 'react-quill';
 import { QUILL_MODULES } from '../../constants/quillModules';
 import { useMaxLengthValidateInput } from '../../hooks/inputHook';
 import { useQuillInput } from '../../hooks/quillHook';
 import { useNavigate } from 'react-router-dom';
 import { useLoadListFromLocalStorage } from '../../hooks/boardListHook';
-
-const layout = css`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 100px 120px;
-  border: 1px solid #dbdbdb;
-  padding: 50px 0px;
-`;
-
-const headerTitle = css`
-  margin-bottom: 30px;
-  text-align: center;
-  font-size: 40px;
-  font-weight: 700;
-`;
-
-const boardTitle = css`
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  outline: none;
-  width: 90%;
-  border: 1px solid #ccc;
-  padding: 10px;
-`;
-
-const submitBtn = css`
-  box-sizing: border-box;
-  margin-top: 50px;
-  width: 90%;
-  border: 1px solid #ccc;
-  padding: 10px;
-  background-color: white;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background-color: #fafafa;
-  }
-  &:active {
-    background-color: #eee;
-  }
-`;
 
 function BoardWrite() {
   const navigate = useNavigate();
@@ -76,18 +33,18 @@ function BoardWrite() {
   }
 
   return (
-    <div css={layout}>
-      <h1 css={headerTitle}>글 작성하기</h1>
+    <div css={S.layout}>
+      <h1 css={S.headerTitle}>글 작성하기</h1>
       <input onChange={handleInputChange}
         value={inputValue}
-        css={boardTitle}
+        css={S.boardTitle}
         type="text"
         placeholder='제목을 입력하세요' />
       <ReactQuill onChange={handleQuillValueChange}
         value={quillValue}
         style={{ width: "90%", height: "400px" }}
         modules={QUILL_MODULES} />
-      <button css={submitBtn} onClick={handleSubmitClick}>작성완료</button>
+      <button css={S.submitBtn} onClick={handleSubmitClick}>작성완료</button>
     </div>
   );
 }
