@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import * as S from "./style";
-import { Link } from 'react-router-dom';
-import { useLoadListFromLocalStorage } from '../../hooks/boardListHook';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useA, useB } from '../../hooks/boardListHook';
 import { useRef, useState } from "react";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 function BoardList() {
-  const { boardList } = useLoadListFromLocalStorage();
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page"));
+  const { boardList, pageNumbers, totalPageCount } = useB(page);
   const [showModal, setShowModal] = useState(false);
   const [clickedBoard, setClickedBoard] = useState({
     boardId : 0,
@@ -23,13 +26,11 @@ function BoardList() {
   }
 
   const modal = useRef();
-  
   const handleClickOutside = e => {
     if(e.target !== modal.current){
       setShowModal(false);
     }
   }
-
   const StringToHtml = (string) => {
     return(
       <div dangerouslySetInnerHTML={{ __html: string }}/>
@@ -41,7 +42,9 @@ function BoardList() {
       <div css={S.modalLayout(showModal)} >
         <h1 css={S.modalTitle}>{clickedBoard.boardTitle}</h1>
         <div css={S.modalContent} ref={modal}>{StringToHtml(clickedBoard.boardContent)}</div>
-        <button css={S.modalOutBtn} onClick={()=>{setShowModal(false)}}>나가기</button>
+        <button css={S.modalOutBtn} onClick={()=>{
+          setShowModal(false);
+          }}>나가기</button>
       </div>      
       <h1 css={S.headerTitle}>게시글 목록</h1>
       <ul css={S.boardListLayout}>
@@ -52,18 +55,30 @@ function BoardList() {
         {
           boardList.map(board => {
             return (
-              <Link onClick={()=>{handleboardClick(board)}} css={S.boardListItem}>
+              <div onClick={()=>{handleboardClick(board)}} css={S.boardListItem}>
                 <li key={board.boardId}>
                   <div>{board.boardId}</div>
                   <div>{board.boardTitle}</div>
                 </li>
-              </Link>
+              </div>
             )
           })
         }
       </ul>
+        <Link>
+          <div>
+            <Link to={`/board/list?page=1`}>처음으로</Link>
+            <Link to={`/board/list?page=${page - 1}`}><FaCaretLeft/></Link>
+              {
+                pageNumbers.map(pageNumber => 
+                <Link to={`/board/list?page=${pageNumber}`}>{pageNumber}</Link>
+                )
+              }
+            <Link to={`/board/list?page=${page + 1}`}><FaCaretRight/></Link>
+            <Link to={`/board/list?page=${totalPageCount}`}>마지막으로</Link>
+          </div>
+        </Link>
     </div>
   );
 }
-
 export default BoardList;

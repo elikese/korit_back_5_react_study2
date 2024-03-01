@@ -16,7 +16,6 @@ function App() {
           {MENUS.map(menu => <Route key={menu.id} path={menu.path} element={menu.element} />)}
         </Routes>
       </RootLayout>
-      
     </>
   );
 }
