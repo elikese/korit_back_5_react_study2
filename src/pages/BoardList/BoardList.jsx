@@ -66,7 +66,7 @@ function BoardList() {
         }
       </ul>
         <Link>
-          <div>
+          <div css={S.boardNavLayout}>
             <Link to={`/board/list?page=1`}>처음으로</Link>
             <Link to={`/board/list?page=${page - 1}`}><FaCaretLeft/></Link>
               {

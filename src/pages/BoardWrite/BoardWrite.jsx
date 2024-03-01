@@ -29,7 +29,7 @@ function BoardWrite() {
     }
     localStorage.setItem("boardList", JSON.stringify(newBoardList));
     alert("글작성 완료!");
-    navigate("/board/list");
+    navigate("/board/list?page=1");
   }
 
   return (

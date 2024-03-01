@@ -11,16 +11,17 @@ export const layout = css`
 export const modalLayout = (showModal) => css`
   box-sizing: border-box;
   position: fixed;
-  top: ${showModal ? "50%" : "50%"};;
-  left: ${showModal ? "50%" : "50%"};;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%,-50%);
   border: 1px solid #dbdbdb;
   padding: 50px 100px;
   width: ${showModal ? "1000px" : "0px"};
   height: ${showModal ? "600px" : "0px"};
-  opacity: ${showModal ? "1" : "0"};;
+  opacity: ${showModal ? "1" : "0"};
   background-color: white;
   transition: all 0.3s ease-in-out;
+  z-index: ${showModal ? "2" : "-10"};
 `
 
 export const modalTitle = css`
@@ -75,8 +76,8 @@ export const headerTitle = css`
 export const boardListLayout = css`
   box-sizing: border-box;
   border: 1px solid #dbdbdb;
-  width: 900px;
-  height: 500px;
+  width: 800px;
+  height: 452px;
 `
 
 export const boardListHead = css`
@@ -131,4 +132,18 @@ export const boardListItem = css`
       width: 80px;
     }
   }
+`
+export const boardNavLayout = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  & > a {
+    box-sizing: border-box;
+        margin: 0px 3px;
+        padding: 3px;
+        text-decoration: none;
+        color: #222;
+        font-weight: 700;
+    }
 `
